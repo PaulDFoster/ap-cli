@@ -7,12 +7,12 @@ The required arguments for the ap-cli can be specified as command line arguments
 
 To use this utility you require:
 
-Tenant Id
-Client Id
-Client Secret OR Certificate details defined in appsettings.json
+- Tenant Id
+- Client Id
+- Client Secret OR Certificate details defined in appsettings.json
 
-Group Id of the AAD group to be added to the Access Package
-Catalog Display Name to be used or created
-Access Package Name to be used or created
+- Group Id of the AAD group to be added to the Access Package
+- Catalog Display Name to be used or created
+- Access Package Name to be used or created
 
 Defaults for Azure Public Cloud used unless others specified
