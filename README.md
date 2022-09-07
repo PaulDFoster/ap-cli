@@ -16,3 +16,10 @@ To use this utility you require:
 - Access Package Name to be used or created
 
 Defaults for Azure Public Cloud used unless others specified
+
+There are several permissions required for the logged in Azure user including:
+
+- Directory.ReadWrite.All
+- Group.ReadWrite.All
+- EntitlementManagement.ReadWrite.All
+
