@@ -16,7 +16,7 @@ namespace ap_cli
             [Option('i', "instancename", Required = false, HelpText = "Azure cloud login")]
             public string InstanceName { get; set; } = "https://login.microsoftonline.com/{0}";
 
-            [Option('a', "apiurl", Required = false, HelpText = "Microsoft Graph API URL")]
+            [Option('u', "apiurl", Required = false, HelpText = "Microsoft Graph API URL")]
             public string ApiUrl { get; set; } = "https://graph.microsoft.com/";
 
             [Option('t', "tenantid", Required = false, HelpText = "Azure tenant id (guid). REQUIRED")]
@@ -39,6 +39,9 @@ namespace ap_cli
 
             [Option('p', "accesspackagename", Required = true, HelpText = "The Entitlement Management Access Package name to use/create")]
             public string AccessPackageName { get; set; }
+
+            [Option('a', "approver", Required = true, HelpText = "The approver Azure AD Security Group Id (security group id)")]
+            public string ApproverUserId { get; set; }
         }
     }
 }

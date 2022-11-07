@@ -8,6 +8,7 @@ using Microsoft.Identity.Web;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,7 +58,7 @@ namespace ap_cli
                         app.AddInMemoryTokenCache();
 
 
-                        RunAsync(app, config, o.GroupId, o.CatalogDisplayName, o.AccessPackageName).GetAwaiter().GetResult();
+                        RunAsync(app, config, o.GroupId, o.CatalogDisplayName, o.AccessPackageName,o.ApproverUserId).GetAwaiter().GetResult();
                     }
                     catch (Exception ex)
                     {
@@ -70,9 +71,10 @@ namespace ap_cli
 
         }
 
-        private static async Task RunAsync(IConfidentialClientApplication app, AuthenticationConfig config, string groupId, string spokeCatalogDisplayName, string accessPackageName)
+        private static async Task RunAsync(IConfidentialClientApplication app, AuthenticationConfig config, string groupId, string spokeCatalogDisplayName, string accessPackageName, string approverUserId)
         {
-
+            groupId= groupId.Trim('"');
+            approverUserId = approverUserId.Trim('"');
             // With client credentials flows the scopes is ALWAYS of the shape "resource/.default", as the 
             // application permissions need to be set statically (in the portal or by PowerShell), and then granted by a tenant administrator. 
             string[] scopes = new string[] { $"{config.ApiUrl}.default" }; // Generates a scope -> "https://graph.microsoft.com/.default"
@@ -86,6 +88,8 @@ namespace ap_cli
             CatalogResource accessPackageCatalogGroup = await GroupAddIfNotExist(graphServiceClient, groupId, spokeCatalogDisplayName, spokeAccessPackageCatalog);
 
             await GroupRoleAddIfNotExist(graphServiceClient, accessPackage, accessPackageCatalogGroup, groupId);
+
+            await AccessPackagePolicyCreateIfNotExist(graphServiceClient, accessPackage.Id, accessPackage.DisplayName, approverUserId);
 
         }
 
