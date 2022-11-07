@@ -23,7 +23,7 @@ namespace ap_cli
                 // Assuming it was, get the new catalog group id
                 catalogResources = await GetAccessPackageCatalogResources(graphServiceClient, spokeAccessPackageCatalog.Id);
                 accessPackageCatalogGroup = catalogResources.First<CatalogResource>(x => x.OriginId == groupId);
-                Console.WriteLine(string.Format("{0} group already created in catalog {1}.", groupId, spokeCatalogDisplayName));
+                Console.WriteLine(string.Format("{0} group created in catalog {1}.", groupId, spokeCatalogDisplayName));
             }
             else
             {
@@ -78,14 +78,15 @@ namespace ap_cli
                 jsonSerializerOptions.WriteIndented = false;
 
                 string body = JsonSerializer.Serialize<AccessPackageResourceRequest>(accessPackageResourceRequest, jsonSerializerOptions);
+                Console.WriteLine(body);
                 request.Content = new StringContent(body, Encoding.UTF8, "application/json");
 
                 await graphServiceClient.AuthenticationProvider.AuthenticateRequestAsync(request);
 
                 var response = await httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-
                 var res = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(res);
+                response.EnsureSuccessStatusCode();
                 OdataResourceResponse odataResourceResponse = JsonSerializer.Deserialize<OdataResourceResponse>(res);
 
                 return odataResourceResponse;

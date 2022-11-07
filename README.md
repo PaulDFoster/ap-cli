@@ -1,6 +1,7 @@
 # ap-cli
 
-ap-cli uses Microsoft Graph V1.0 and Beta api to create the required Entitlement Management resources for a AAD Group to be added with Member role into an Access Package.
+ap-cli uses Microsoft Graph V1.0 and Beta api to create the required Entitlement Management resources for a AAD Group to be added with Member role into an Access Package and an approval policy requiring approvers to be members of the supplied AAD Security Group.
+
 The current Microsoft Graph V1.0 api doesn't support all the required functionality.
 
 The required arguments for the ap-cli can be specified as command line arguments or within the appsettings.json file ( -j false required arg).
@@ -10,10 +11,10 @@ To use this utility you require:
 - Tenant Id
 - Client Id
 - Client Secret OR Certificate details defined in appsettings.json
-
 - Group Id of the AAD group to be added to the Access Package
 - Catalog Display Name to be used or created
 - Access Package Name to be used or created
+- Security Group Id of approvers group
 
 Defaults for Azure Public Cloud used unless others specified
 
